@@ -1,4 +1,4 @@
-package spring.agency;
+package spring.agency.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 import spring.agency.entity.roles.User;
-import spring.agency.repository.UserRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -34,5 +33,14 @@ public class UserRepositoryTest {
         User existUser = entityManager.find(User.class, savedUser.getId());
 
         assertThat(existUser.getLogin()).isEqualTo(user.getLogin());
+    }
+
+    @Test
+    public void testFindUserByLogin() {
+        String login = "somelogin";
+
+        User user = userRepository.findByLogin(login);
+
+        assertThat(user).isNotNull();
     }
 }
