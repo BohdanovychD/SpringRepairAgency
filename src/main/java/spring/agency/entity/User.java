@@ -1,4 +1,4 @@
-package spring.agency.entity.roles;
+package spring.agency.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

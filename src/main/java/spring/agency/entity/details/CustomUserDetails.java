@@ -2,7 +2,7 @@ package spring.agency.entity.details;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import spring.agency.entity.roles.User;
+import spring.agency.entity.User;
 
 import java.util.Collection;
 
