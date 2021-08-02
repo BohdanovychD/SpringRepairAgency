@@ -19,11 +19,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = false, unique = true, length = 24)
     private String login;
 
     @Column(nullable = false, length = 64)
     private String password;
 
+    @Column(nullable = false, length = 20)
     private String name;
 }
