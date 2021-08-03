@@ -12,7 +12,7 @@ import spring.agency.repository.UserRepository;
 import java.util.List;
 
 @Controller
-public class AppController {
+public class MainController {
 
     @Autowired
     private UserRepository userRepository;
