@@ -1,4 +1,4 @@
-package spring.agency.entity;
+package spring.agency.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,7 +19,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "user_id")
+    private long userId;
 
     @Column(nullable = false, unique = true, length = 24)
     private String login;
@@ -27,4 +30,12 @@ public class User {
 
     @Column(nullable = false, length = 20)
     private String name;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 }

@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import spring.agency.service.CustomUserDetailsService;
+import spring.agency.service.UserDetailsServiceImpl;
 
 import javax.sql.DataSource;
 
@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
+        return new UserDetailsServiceImpl();
     }
 
     @Bean
@@ -48,14 +48,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+
+//                .antMatchers("/list_users").authenticated()
+//                .anyRequest().permitAll()
+//                .and()
+//                .formLogin().loginPage("/login").usernameParameter("login").permitAll()
+//                .defaultSuccessUrl("/list_users")
+//                .and()
+//                .logout().logoutSuccessUrl("/").permitAll();
+
+
                 .antMatchers("/list_users").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                .loginPage("/login.html")
                 .usernameParameter("login")
                 .defaultSuccessUrl("/list_users")
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
+
     }
 }

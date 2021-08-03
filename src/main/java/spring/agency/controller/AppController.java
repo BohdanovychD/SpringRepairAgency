@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import spring.agency.entity.User;
+import spring.agency.model.entity.User;
 import spring.agency.repository.UserRepository;
 
 import java.util.List;
@@ -42,5 +42,11 @@ public class AppController {
         List<User> userList = userRepository.findAll();
         model.addAttribute("userList", userList);
         return "users";
+    }
+
+    @GetMapping("/login")
+    public String showSignInForm(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
     }
 }

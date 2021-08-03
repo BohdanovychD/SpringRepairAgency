@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
-import spring.agency.entity.User;
+import spring.agency.model.entity.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -30,7 +30,7 @@ public class UserRepositoryTest {
 
         User savedUser = userRepository.save(user);
 
-        User existUser = entityManager.find(User.class, savedUser.getId());
+        User existUser = entityManager.find(User.class, savedUser.getUserId());
 
         assertThat(existUser.getLogin()).isEqualTo(user.getLogin());
     }

@@ -11,7 +11,7 @@
         <p>
             <b>[[#{menu.greeting}]][[${#request.userPrincipal.principal.greeting}]]</b>
         </p>
-        <input type="submit" value="Will back soon" /> //TODO Bundle
+        <input type="submit" text="[[#{menu.sign.out}]]"  />
     </form>
     </div>
         <div class="container text-center">
@@ -25,13 +25,15 @@
                             <th>[[#{user.id}]]</th>
                             <th>[[#{user.login}]]</th>
                             <th>[[#{user.name}]]</th>
+                            <th>[[#{user.role}]]</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="user: ${userList}">
-                            <td th:text="${user.id}">[[#{user.id}]]</td>
+                            <td th:text="${user.userId}">[[#{user.id}]]</td>
                             <td th:text="${user.login}">[[#{user.login}]]</td>
                             <td th:text="${user.name}">[[#{user.name}]]</td>
+                            <td th:text="${user.roles}">[[#{user.role}]]</td>
                         </tr>
                     </tbody>
                 </table>
