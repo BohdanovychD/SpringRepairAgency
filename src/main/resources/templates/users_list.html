@@ -6,13 +6,8 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-    <div class="container text-right">
-    <form th:action="@{/logout}" method="post">
-        <p>
-            <b>[[#{menu.greeting}]][[${#request.userPrincipal.principal.greeting}]]</b>
-        </p>
-        <input type="submit" value="Sign out"/> //TODO Locale
-    </form>
+    <header th:insert="blocks/header_lang :: header_lang"></header>
+    <header th:insert="blocks/header_logout :: header_logout"></header>
     </div>
         <div class="container text-center">
             <div>
@@ -26,6 +21,7 @@
                             <th>[[#{user.login}]]</th>
                             <th>[[#{user.name}]]</th>
                             <th>[[#{user.role}]]</th>
+                            <th>[[#{user.balance}]]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +30,7 @@
                             <td th:text="${user.login}">[[#{user.login}]]</td>
                             <td th:text="${user.name}">[[#{user.name}]]</td>
                             <td th:text="${user.roles}">[[#{user.role}]]</td>
+                            <td th:text="${user.balance}">[[#{user.balance}]]</td>
                         </tr>
                     </tbody>
                 </table>

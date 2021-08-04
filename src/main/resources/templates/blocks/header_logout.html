@@ -1,0 +1,13 @@
+<div th:fragment="header_logout">
+    <div class="container text-right">
+        <form th:action="@{/logout}" method="post">
+            <div sec:authorize="isAuthenticated()">
+                <div sec:authorize="isAuthenticated()">
+                    [[#{menu.greeting}]] <b><span sec:authentication="principal.greeting">Greeting</span></b>&nbsp;
+                    <i><span sec:authentication="principal.authorities">Roles</span></i>
+                </div>
+            </div>
+            <input type="submit" value="Sign out"/>
+        </form>
+    </div>
+</div>

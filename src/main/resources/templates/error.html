@@ -2,16 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>[[#{user.success.registration}]]</title>
+    <title>[[#{menu.error}]]</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
-<body>
 <header th:insert="blocks/header_lang :: header_lang"></header>
+<body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
 <div class="container text-center">
-    <div>
-        <h3>[[#{menu.success.sign.in}]]</h3>
-        <h4><a th:href="@{/login}">[[#{menu.click}]]</a></h4>
-    </div>
+    <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+    <p th:utext="${errorMessage}"></p>
+    <a href="index.html" th:href="@{/}">[[#{menu.back}]]</a>
 </div>
 </body>
 </html>

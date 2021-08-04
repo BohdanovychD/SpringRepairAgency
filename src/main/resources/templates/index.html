@@ -6,31 +6,15 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-        <span class="container text-right">
-            <nav class="navbar navbar-expand-sm">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{?lang=en}">
-                        <img th:src="@{/images/engFlag.png}" width="50" height="70"/> English
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{?lang=uk}">
-                        <img th:src="@{/images/ukrFlag.png}" width="50" height="60"/> Українська
-                    </a>
-                </li>
-            </nav>
-        </span>
-        <div class="container text-center">
+    <header th:insert="blocks/header_lang :: header_lang"></header>
+    <div class="container text-center">
+        <div>
+            <h1>[[#{main.headline}]]</h1>
+        </div>
             <div>
-                <h1>[[#{main.headline}]]</h1>
-            </div>
-            <div>
-                <h3><a th:href="@{/list_users}">[[#{user.list}]]</a></h3>
                 <h3><a th:href="@{/login}">[[#{menu.login}]]</a></h3>
                 <h3><a th:href="@{/register}">[[#{menu.registration}]]</a></h3>
             </div>
-        </div>
-
-
+    </div>
 </body>
 </html>

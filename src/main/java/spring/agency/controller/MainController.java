@@ -6,16 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import spring.agency.model.entity.Role;
 import spring.agency.model.entity.User;
+import spring.agency.repository.RoleRepository;
 import spring.agency.repository.UserRepository;
 
-import java.util.List;
+import java.util.Arrays;
 
 @Controller
 public class MainController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/")
     public String viewHomePage() {
@@ -28,25 +33,31 @@ public class MainController {
         return "sign_up";
     }
 
-    @PostMapping("/register_process")
+    @PostMapping("/register/process")
     public String processRegistration(User user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setBalance(0.0);
+        Role role = roleRepository.findByName("USER");
+        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
         return "register_success";
-    }
-
-    @GetMapping("/list_users")
-    public String viewUserList(Model model) {
-        List<User> userList = userRepository.findAll();
-        model.addAttribute("userList", userList);
-        return "users";
     }
 
     @GetMapping("/login")
     public String showSignInForm(Model model) {
         model.addAttribute("user", new User());
         return "login";
+    }
+
+    @GetMapping("/login_error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
+    @GetMapping("/main_page")
+    public String mainPage(Model model) {
+        return "main_page";
     }
 }
