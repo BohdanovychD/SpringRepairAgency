@@ -6,21 +6,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import spring.agency.dao.RoleDao;
+import spring.agency.dao.StatementDao;
+import spring.agency.dao.UserDao;
 import spring.agency.model.entity.Role;
 import spring.agency.model.entity.User;
-import spring.agency.repository.RoleRepository;
-import spring.agency.repository.UserRepository;
+
 
 import java.util.Arrays;
 
 @Controller
 public class MainController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
+    private RoleDao roleDao;
+    private StatementDao statementDao;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public MainController(UserDao userDao, RoleDao roleDao, StatementDao statementDao) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
+        this.statementDao = statementDao;
+    }
 
     @GetMapping("/")
     public String viewHomePage() {
@@ -39,9 +46,9 @@ public class MainController {
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setBalance(0.0);
-        Role role = roleRepository.findByName("USER");
+        Role role = roleDao.findByName("USER");
         user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
+        userDao.save(user);
         return "register_success";
     }
 
