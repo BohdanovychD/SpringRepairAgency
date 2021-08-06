@@ -9,5 +9,17 @@
 <body>
 <header th:insert="blocks/header_lang :: header_lang"></header>
 <header th:insert="blocks/header_logout :: header_logout"></header>
+<div sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasAuthority('MANAGER')">
+        <h4>
+            <a th:href="@{/manager/users_list}">[[#{user.list}]]</a>
+        </h4>
+        <h4>
+            <a th:href="@{/manager/statement_list}">[[#{statement.list}]]</a>
+        </h4>
+    </div>
+    <div sec:authorize="hasAuthority('USER')">
+    </div>
+</div>
 </body>
 </html>

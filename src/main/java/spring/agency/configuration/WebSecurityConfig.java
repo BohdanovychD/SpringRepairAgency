@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import spring.agency.service.UserDetailsServiceImpl;
 
 import javax.sql.DataSource;
@@ -46,17 +49,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/images/**","/webjars/**", "/css/**", "/js/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
+        http
+                .authorizeRequests()
+                    .antMatchers("/", "/login/**","/register/**").permitAll()
+                    .antMatchers("/manager/**").hasAuthority("MANAGER")
+                    .antMatchers("/user/**").hasAuthority("USER")
+                    .antMatchers("/master/").hasAuthority("MASTER")
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login.html")
-                .usernameParameter("login")
-                .defaultSuccessUrl("/main_page")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                    .loginPage("/login.html")
+                    .usernameParameter("login")
+                    .defaultSuccessUrl("/main_page")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/")
+                    .permitAll();
     }
 
 

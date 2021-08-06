@@ -56,8 +56,9 @@ public class MainController {
         model.addAttribute("loginError", true);
         return "login";
     }
+
     @GetMapping("/main_page")
-    public String mainPage(Model model) {
+    public String mainUserMenu() {
         return "main_page";
     }
 }
