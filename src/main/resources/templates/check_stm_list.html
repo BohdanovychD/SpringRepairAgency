@@ -19,6 +19,8 @@
             <tr>
                 <th>[[#{statement.id}]]</th>
                 <th>[[#{statement.name}]]</th>
+                <th>[[#{statement.price}]]</th>
+                <th>[[#{statement.price}]]</th>
                 <th>[[#{statement.about}]]</th>
                 <th>[[#{statement.status}]]</th>
                 <th>[[#{statement.time}]]</th>
@@ -26,8 +28,10 @@
             </thead>
             <tbody>
             <tr th:each="statement: ${statementList}">
-                <td th:text="${statement.statementId}">[[#{statement.id}]]</td>
+                <td th:text="${statement.id}">[[#{statement.id}]]</td>
                 <td th:text="${statement.name}">[[#{statement.name}]]</td>
+                <td th:text="${statement.price}">[[#{statement.price}]]</td>
+                <td><a th:href="@{'/manager/statements_list/' + ${statement.id} + '/set_price'}">[[#{statement.set}]]</a></td>
                 <td th:text="${statement.about}">[[#{statement.about}]]</td>
                 <td th:text="${statement.status}">[[#{statement.status}]]</td>
                 <td th:text="${statement.data}">[[#{statement.time}]]</td>

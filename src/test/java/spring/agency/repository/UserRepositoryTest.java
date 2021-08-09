@@ -30,7 +30,7 @@ public class UserRepositoryTest {
 
         User savedUser = userRepository.save(user);
 
-        User existUser = entityManager.find(User.class, savedUser.getUserId());
+        User existUser = entityManager.find(User.class, savedUser.getId());
 
         assertThat(existUser.getLogin()).isEqualTo(user.getLogin());
     }

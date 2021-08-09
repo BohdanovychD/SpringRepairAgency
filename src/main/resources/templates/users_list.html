@@ -9,7 +9,7 @@
 <body>
     <header th:insert="blocks/header_lang :: header_lang"></header>
     <header th:insert="blocks/header_logout :: header_logout"></header>
-    <div sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasAuthority('MANAGER')">
         <div class="container text-center">
             <div>
                 <h1>[[#{user.list}]]</h1>
@@ -27,15 +27,12 @@
                     </thead>
                     <tbody>
                         <tr th:each="user: ${userList}">
-                            <td th:text="${user.userId}">[[#{user.id}]]</td>
+                            <td th:text="${user.id}">[[#{user.id}]]</td>
                             <td th:text="${user.login}">[[#{user.login}]]</td>
                             <td th:text="${user.name}">[[#{user.name}]]</td>
                             <td th:text="${user.roles}">[[#{user.role}]]</td>
                             <td th:text="${user.balance}">[[#{user.balance}]]</td>
-
-                            <td sec:authorize="hasAuthority('MANAGER')">
-                                <a th:href="@{'/manager/users_list/' + ${user.userId} + '/add_money'}">Edit</a>
-                            </td>
+                            <td><a th:href="@{'/manager/users_list/' + ${user.id} + '/add_money'}">[[#{admin.add.money}]]</a></td>
                         </tr>
                     </tbody>
                 </table>

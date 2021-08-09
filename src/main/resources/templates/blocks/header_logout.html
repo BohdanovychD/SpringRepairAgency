@@ -2,10 +2,11 @@
     <div class="container text-right">
         <form th:action="@{/logout}" method="post">
             <div sec:authorize="isAuthenticated()">
-                <div sec:authorize="isAuthenticated()">
+                <div style="float: left">
+                    <h3><a href="/main_page">[[#{menu.main}]]</a></h3>
+                </div>
                     [[#{menu.greeting}]] <b><span sec:authentication="principal.greeting">Greeting</span></b>&nbsp;
                     <i><span sec:authentication="principal.authorities">Roles</span></i>
-                </div>
             </div>
             <button type="submit">[[#{menu.sign.out}]]</button>
         </form>

@@ -19,10 +19,10 @@ public class Statement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "statement_id")
-    private long statementId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 20)
     private String name;
 
     @Column(length = 20)
@@ -31,8 +31,14 @@ public class Statement {
     @Column()
     private String about;
 
+    @Column()
+    private Double price;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "time", nullable = false)
     private Date data;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 }

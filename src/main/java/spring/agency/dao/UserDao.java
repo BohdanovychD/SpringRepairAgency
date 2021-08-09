@@ -26,6 +26,10 @@ public class UserDao {
     }
 
     public void update(User updatedUser) {
-        userRepository.updateBalance(updatedUser.getBalance(), updatedUser.getUserId());
+        userRepository.updateBalance(updatedUser.getBalance(), updatedUser.getId());
+    }
+
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 }

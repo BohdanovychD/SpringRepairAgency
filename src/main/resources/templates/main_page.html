@@ -15,10 +15,16 @@
             <a th:href="@{/manager/users_list}">[[#{user.list}]]</a>
         </h4>
         <h4>
-            <a th:href="@{/manager/statement_list}">[[#{statement.list}]]</a>
+            <a th:href="@{/manager/statements_list}">[[#{statement.list}]]</a>
         </h4>
     </div>
     <div sec:authorize="hasAuthority('USER')">
+        <h4>
+            <a th:href="@{/user/create_statement}">[[#{statement.create}]]</a>
+        </h4>
+        <h4>
+        <a th:href="@{/user/statements_list}">[[#{statement.list}]]</a>
+    </h4>
     </div>
 </div>
 </body>

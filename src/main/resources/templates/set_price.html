@@ -2,21 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <title>[[#{admin.add.money}]]</title>
+    <title>[[#{statement.set.menu}]]</title>
 </head>
 <body>
 <div align="center">
-    <h1>[[#{admin.add.money}]]</h1>
+    <h1>[[#{statement.set.menu}]]</h1>
     <br/>
-    <form action="#" th:action="@{/manager/save/{id}(id=${user.id})}" th:object="${user}" th:method="post">
+    <form action="#" th:action="@{/manager/set/{id}(id=${statement.id})}" th:object="${statement}" th:method="post">
         <table border="0" cellpadding="10">
             <tr>
-                <td>[[#{user.id}]]:</td>
+                <td>[[#{statement.id}]]:</td>
                 <td><input type="text" th:field="*{id}"  /></td>
             </tr>
             <tr>
-                <td>[[#{user.balance}]]:</td>
-                <td><input type="text" th:field="*{balance}" /></td>
+                <td>[[#{statement.price}]]:</td>
+                <td><input type="text" th:field="*{price}" /></td>
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">[[#{menu.save}]]</button></td>
