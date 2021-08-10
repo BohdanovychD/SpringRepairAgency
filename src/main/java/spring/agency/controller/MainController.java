@@ -6,27 +6,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import spring.agency.dao.RoleDao;
-import spring.agency.dao.StatementDao;
-import spring.agency.dao.UserDao;
-import spring.agency.model.entity.Role;
 import spring.agency.model.entity.User;
+import spring.agency.service.RoleService;
+import spring.agency.service.StatementService;
+import spring.agency.service.UserService;
 
 
-import java.util.Arrays;
 
 @Controller
 public class MainController {
 
-    private UserDao userDao;
-    private RoleDao roleDao;
-    private StatementDao statementDao;
+    private UserService userService;
+    private RoleService roleService;
+    private StatementService statementService;
 
     @Autowired
-    public MainController(UserDao userDao, RoleDao roleDao, StatementDao statementDao) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
-        this.statementDao = statementDao;
+    public MainController(UserService userService, RoleService roleService, StatementService statementService) {
+        this.userService = userService;
+        this.roleService = roleService;
+        this.statementService = statementService;
     }
 
     @GetMapping("/")
@@ -42,13 +40,7 @@ public class MainController {
 
     @PostMapping("/register/process")
     public String processRegistration(User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user.setBalance(0.0);
-        Role role = roleDao.findByName("USER");
-        user.setRoles(Arrays.asList(role));
-        userDao.save(user);
+        userService.save(user);
         return "register_success";
     }
 

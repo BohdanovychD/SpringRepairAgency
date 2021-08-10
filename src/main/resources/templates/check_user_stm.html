@@ -31,10 +31,10 @@
         <td th:text="${statement.id}">[[#{statement.id}]]</td>
         <td th:text="${statement.name}">[[#{statement.name}]]</td>
         <td th:text="${statement.price}">[[#{statement.price}]]</td>
-        <td><a th:href="@{'/manager/statements_list/' + ${statement.id} + '/set_price'}">[[#{statement.set}]]</a></td>
+        <td><a th:href="@{'/manager/statements_list/' + ${statement.id} + '/pay'}">[[#{statement.pay}]]</a></td>
         <td th:text="${statement.about}">[[#{statement.about}]]</td>
         <td th:text="${statement.status}">[[#{statement.status}]]</td>
-        <td th:text="${statement.data}">[[#{statement.time}]]</td>
+        <td th:text="${#dates.format(statement.date, 'yyyy-MM-dd HH:mm')} ">[[#{statement.time}]]</td>
       </tr>
       </tbody>
     </table>

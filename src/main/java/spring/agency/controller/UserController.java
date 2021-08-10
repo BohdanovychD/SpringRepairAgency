@@ -25,7 +25,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Timestamp timestamp = Timestamp.from(Instant.now());
 
     private StatementService statementService;
     private UserService userService;
@@ -41,9 +40,7 @@ public class UserController {
 
     @GetMapping("/statements_list")
     public String viewStatementList(Model model, Principal principal) {
-        String login = principal.getName();
-        User user = userService.findByLogin(login);
-        List<Statement> statementList = statementService.findByUserId(user.getId());
+        List<Statement> statementList = statementService.findByUserId(principal);
         model.addAttribute("statementList", statementList);
         return "check_user_stm";
     }
@@ -56,13 +53,7 @@ public class UserController {
 
     @PostMapping("/create_statement/success")
     public String successStatement(Statement statement, Principal principal) {
-        String login = principal.getName();
-        User user = userService.findByLogin(login);
-        statement.setUser(user);
-        statement.setPrice(0.0);
-        statement.setData(timestamp);
-        statement.setStatus("UNCHECKED");
-        statementService.save(statement);
+        statementService.save(statement, principal);
         return "stm_success";
     }
 }

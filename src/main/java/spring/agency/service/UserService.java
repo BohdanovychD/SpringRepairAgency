@@ -1,10 +1,9 @@
 package spring.agency.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.agency.dao.UserDao;
-import spring.agency.model.details.UserDetailsImpl;
 import spring.agency.model.entity.User;
 
 import java.util.List;

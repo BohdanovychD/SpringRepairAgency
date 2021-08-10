@@ -37,7 +37,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindUserByLogin() {
-        String login = "somelogin";
+        String login = "admin";
 
         User user = userRepository.findByLogin(login);
 

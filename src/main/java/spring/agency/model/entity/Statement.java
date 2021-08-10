@@ -36,7 +36,7 @@ public class Statement {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "time", nullable = false)
-    private Date data;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
