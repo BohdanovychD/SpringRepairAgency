@@ -1,11 +1,17 @@
 package spring.agency.dto;
 
+import lombok.*;
 import spring.agency.model.entity.Role;
 import spring.agency.model.entity.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class UserDto {
     private Long id;
     private String login;

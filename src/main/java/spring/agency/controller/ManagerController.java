@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import spring.agency.model.entity.Statement;
 import spring.agency.model.entity.User;
+import spring.agency.service.RoleService;
 import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
 
@@ -19,11 +20,13 @@ public class ManagerController {
 
     private UserService userService;
     private StatementService statementService;
+    private RoleService roleService;
 
     @Autowired
-    public ManagerController(UserService userService, StatementService statementService) {
+    public ManagerController(UserService userService, StatementService statementService, RoleService roleService) {
         this.userService = userService;
         this.statementService = statementService;
+        this.roleService = roleService;
     }
 
 
@@ -34,6 +37,12 @@ public class ManagerController {
         return "users_list";
     }
 
+    @GetMapping("/masters_list")
+    public String viewMasterList(Model model) {
+        List<User> masterList = userService.findAllMasters();
+        model.addAttribute("masterList", masterList);
+        return "masters_list";
+    }
 
     @GetMapping("/statements_list")
     public String viewStatementList(Model model) {
@@ -43,7 +52,7 @@ public class ManagerController {
     }
 
     @PostMapping(value = "/save/{id}")
-    public String saveProduct(@ModelAttribute("user") User user, @PathVariable(name = "id") Long id) {
+    public String saveProduct(@ModelAttribute("user") User user) {
         userService.updateBalance(user);
 
         return "redirect:/manager/users_list";
@@ -59,6 +68,12 @@ public class ManagerController {
         return modelAndView;
     }
 
+    @GetMapping("/users_list/{id}/appoint_master")
+    public String appointMaster(@ModelAttribute User user) {
+        roleService.updateToMaster(user);
+        return "redirect:/manager/users_list";
+    }
+
     @GetMapping("/statements_list/{id}/set_price")
     public ModelAndView setPrice(@PathVariable(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView("set_price");
@@ -70,7 +85,7 @@ public class ManagerController {
     }
 
     @PostMapping(value = "/set/{id}")
-    public String savePrice(@ModelAttribute("statement") Statement statement, @PathVariable(name = "id") Long id) {
+    public String savePrice(@ModelAttribute("statement") Statement statement) {
         statementService.setPrice(statement);
 
         return "redirect:/manager/statements_list";

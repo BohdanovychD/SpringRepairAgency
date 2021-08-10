@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{statement.list}]]</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<header th:insert="blocks/header_lang :: header_lang"></header>
+<header th:insert="blocks/header_logout :: header_logout"></header>
+</div>
+<div class="container text-center">
+    <div>
+        <h1>[[#{statement.list}]]</h1>
+    </div>
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>[[#{statement.id}]]</th>
+                <th>[[#{statement.name}]]</th>
+                <th>[[#{statement.about}]]</th>
+                <th>[[#{statement.status}]]</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="statement: ${statementList}">
+                <td th:text="${statement.id}">[[#{statement.id}]]</td>
+                <td th:text="${statement.name}">[[#{statement.name}]]</td>
+                <td th:text="${statement.about}">[[#{statement.about}]]</td>
+                <td th:text="${statement.status}">[[#{statement.status}]]</td>
+                <td><a th:href="@{'/master/statements_list/' + ${statement.id} + '/take'}">[[#{master.take}]]</a></td>
+                <td><a th:href="@{'/master/statements_list/' + ${statement.id} + '/done'}">[[#{master.done}]]</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

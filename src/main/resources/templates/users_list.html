@@ -21,7 +21,6 @@
                             <th>[[#{user.id}]]</th>
                             <th>[[#{user.login}]]</th>
                             <th>[[#{user.name}]]</th>
-                            <th>[[#{user.role}]]</th>
                             <th>[[#{user.balance}]]</th>
                         </tr>
                     </thead>
@@ -30,9 +29,9 @@
                             <td th:text="${user.id}">[[#{user.id}]]</td>
                             <td th:text="${user.login}">[[#{user.login}]]</td>
                             <td th:text="${user.name}">[[#{user.name}]]</td>
-                            <td th:text="${user.roles}">[[#{user.role}]]</td>
                             <td th:text="${user.balance}">[[#{user.balance}]]</td>
                             <td><a th:href="@{'/manager/users_list/' + ${user.id} + '/add_money'}">[[#{admin.add.money}]]</a></td>
+                            <td><a th:href="@{'/manager/users_list/' + ${user.id} + '/appoint_master'}">[[#{admin.appoint.master}]]</a></td>
                         </tr>
                     </tbody>
                 </table>

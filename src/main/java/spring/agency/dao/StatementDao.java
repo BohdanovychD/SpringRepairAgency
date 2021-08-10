@@ -52,12 +52,35 @@ public class StatementDao {
         return statementRepository.findById(statementId).get();
     }
 
-    public void setPrice(Statement updatedStatement) {
-        statementRepository.setPrice(updatedStatement.getPrice(), updatedStatement.getId());
+    public void setPrice(Statement statement) {
+        statement.setStatus("WAITING FOR PAYMENT");
+        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
     }
+
+    public void leaveComment(Statement statement) {
+        statement.setStatus("COMPLETED");
+        statementRepository.setComment(statement.getComment(), statement.getStatus(), statement.getId());
+    }
+
+    public void cancelStatement(Statement statement) {
+        statement.setStatus("CANCEL");
+        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
+    }
+
+    public void takeStatement(Statement statement) {
+        statement.setStatus("IN A PROCESS");
+        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
+    }
+
+    public void finishStatement(Statement statement) {
+        statement.setStatus("DONE");
+        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
+    }
+
     public List<Statement> findByUserId(Principal principal) {
         String login = principal.getName();
         User user = userRepository.findByLogin(login);
         return statementRepository.findByUserId(user.getId());
     }
+
 }

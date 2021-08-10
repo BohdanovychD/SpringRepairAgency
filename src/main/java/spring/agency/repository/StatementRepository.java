@@ -17,7 +17,13 @@ public interface StatementRepository extends JpaRepository<Statement, Long> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE statements SET price = ?, status = 'WAITING FOR PAYMENT' WHERE id = ?",
+    @Query(value = "UPDATE statements SET price = ?, status = ? WHERE id = ?",
             nativeQuery = true)
-    void setPrice(@Param("price") Double price, @Param("statement_id") Long id);
+    void setPrice(@Param("price") Double price, @Param("status") String status, @Param("statement_id") Long id);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE statements SET comment = ?, status = ? WHERE id = ?",
+            nativeQuery = true)
+    void setComment(@Param("comment") String comment, @Param("status") String status, @Param("statement_id") Long id);
 }

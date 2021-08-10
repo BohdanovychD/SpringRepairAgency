@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>[[#{master.list}]]</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<header th:insert="blocks/header_lang :: header_lang"></header>
+<header th:insert="blocks/header_logout :: header_logout"></header>
+<div sec:authorize="hasAuthority('MANAGER')">
+    <div class="container text-center">
+        <div>
+            <h1>[[#{master.list}]]</h1>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>[[#{master.id}]]</th>
+                    <th>[[#{user.login}]]</th>
+                    <th>[[#{user.name}]]</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${masterList}">
+                    <td th:text="${user.id}">[[#{master.id}]]</td>
+                    <td th:text="${user.login}">[[#{user.login}]]</td>
+                    <td th:text="${user.name}">[[#{user.name}]]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -28,12 +28,28 @@ public class StatementService {
         return statementDao.findById(statementId);
     }
 
-    public void setPrice(Statement updatedStatement) {
-        statementDao.setPrice(updatedStatement);
+    public void setPrice(Statement statement) {
+        statementDao.setPrice(statement);
+    }
+
+    public void leaveComment(Statement statement) {
+        statementDao.leaveComment(statement);
     }
 
     public List<Statement> findByUserId(Principal principal) {
         return statementDao.findByUserId(principal);
+    }
+
+    public void takeStatement(Statement statement) {
+        statementDao.takeStatement(statement);
+    }
+
+    public void cancelStatement(Statement statement) {
+        statementDao.cancelStatement(statement);
+    }
+
+    public void finishStatement(Statement statement) {
+        statementDao.finishStatement(statement);
     }
 }
 

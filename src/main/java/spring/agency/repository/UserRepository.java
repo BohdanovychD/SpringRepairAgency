@@ -7,12 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import spring.agency.model.entity.User;
 
+import java.util.Collection;
+import java.util.List;
+
 
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    @Query(value = "SELECT * FROM users WHERE password = ?",
-            nativeQuery = true)
-    User findByPassword(@Param("password") String password);
 
     @Query(value = "SELECT * FROM users WHERE login = ?",
             nativeQuery = true)
@@ -23,4 +22,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "UPDATE users SET balance = ? WHERE id = ?",
             nativeQuery = true)
     void updateBalance(@Param("balance") Double balance, @Param("user_id") Long id);
+
+    @Query(value = "SELECT * FROM users_roles where role_id = ?",
+            nativeQuery = true)
+    List<Long> findAllUserIdByRoleId(@Param("role_id") Long id);
+
 }
