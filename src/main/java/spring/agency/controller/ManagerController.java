@@ -1,6 +1,8 @@
 package spring.agency.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +12,6 @@ import spring.agency.model.entity.User;
 import spring.agency.service.RoleService;
 import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
-
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/manager")
@@ -32,23 +31,82 @@ public class ManagerController {
 
     @GetMapping("/users_list")
     public String viewUserList(Model model) {
-        List<User> userList = userService.findAllUsers();
-        model.addAttribute("userList", userList);
+        return userListByPage(model, 1);
+    }
+
+    @GetMapping("/users_list/page/{pageNumber}")
+    public String userListByPage(Model model, @PathVariable("pageNumber") Integer currentPage) {
+        Page<User> page = userService.findAllUsers(currentPage);
+
+        model.addAttribute("currentPage", page.getNumber());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("size", page.getSize());
+        model.addAttribute("userList", page.getContent());
         return "users_list";
     }
 
     @GetMapping("/masters_list")
     public String viewMasterList(Model model) {
-        List<User> masterList = userService.findAllMasters();
-        model.addAttribute("masterList", masterList);
+        return mastersListByPage(model, 1);
+    }
+
+    @GetMapping("/masters_list/page/{pageNumber}")
+    public String mastersListByPage(Model model, @PathVariable("pageNumber") Integer currentPage) {
+        Page<User> page = userService.findAllMasters(currentPage);
+
+        model.addAttribute("currentPage", page.getNumber());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("size", page.getSize());
+        model.addAttribute("masterList", page.getContent());
         return "masters_list";
     }
 
     @GetMapping("/statements_list")
     public String viewStatementList(Model model) {
-        List<Statement> statementList = statementService.findAllStatements();
-        model.addAttribute("statementList", statementList);
+        return statementListByPage(model, 1, "id", "asc");
+    }
+
+    @GetMapping("/statements_list/page/{pageNumber}")
+    public String statementListByPage(Model model, @PathVariable("pageNumber") Integer currentPage,
+                                      @Param("sortField") String sortField,
+                                      @Param("sortDir") String sortDir) {
+        Page<Statement> page = statementService.findAllUncompletedStatements(currentPage, sortField, sortDir);
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("size", page.getSize());
+        model.addAttribute("statementList", page.getContent());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "check_stm_list";
+    }
+
+    @GetMapping("/reports_list")
+    public String viewReportList(Model model) {
+        return reportListByPage(model, 1, "id", "asc");
+    }
+
+    @GetMapping("/reports_list/page/{pageNumber}")
+    public String reportListByPage(Model model, @PathVariable("pageNumber") Integer currentPage,
+                                      @Param("sortField") String sortField,
+                                      @Param("sortDir") String sortDir) {
+        Page<Statement> page = statementService.findAllCompletedStatements(currentPage, sortField, sortDir);
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("size", page.getSize());
+        model.addAttribute("statementList", page.getContent());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        return "reports_list";
     }
 
     @PostMapping(value = "/save/{id}")

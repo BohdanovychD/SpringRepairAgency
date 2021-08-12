@@ -20,6 +20,9 @@
         <h4>
             <a th:href="@{/manager/statements_list}">[[#{statement.list}]]</a>
         </h4>
+        <h4>
+            <a th:href="@{/manager/reports_list}">[[#{report.list}]]</a>
+        </h4>
     </div>
     <div sec:authorize="hasAuthority('USER')">
         <h4>

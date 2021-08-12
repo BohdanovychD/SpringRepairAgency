@@ -1,6 +1,10 @@
 package spring.agency.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import spring.agency.dao.StatementDao;
 import spring.agency.dao.UserDao;
@@ -16,8 +20,16 @@ public class StatementService {
     private StatementDao statementDao;
 
 
-    public List<Statement> findAllStatements() {
-        return statementDao.findAllStatements();
+    public Page<Statement> findAllUncompletedStatements(Integer pageNumber, String sortField, String sortDir) {
+        return statementDao.findAllUncompletedStatements(pageNumber, sortField, sortDir);
+    }
+
+    public Page<Statement> findAllStatementsForMaster(Integer pageNumber, String sortField, String sortDir, Principal principal) {
+        return statementDao.findAllStatementsForMaster(pageNumber, sortField, sortDir, principal);
+    }
+
+        public Page<Statement> findAllCompletedStatements(Integer pageNumber, String sortField, String sortDir) {
+        return statementDao.findAllCompletedStatements(pageNumber, sortField, sortDir);
     }
 
     public Statement save(Statement statement, Principal principal) {
@@ -36,20 +48,20 @@ public class StatementService {
         statementDao.leaveComment(statement);
     }
 
-    public List<Statement> findByUserId(Principal principal) {
-        return statementDao.findByUserId(principal);
+    public Page<Statement> findByUserId(Principal principal, Integer pageNumber) {
+        return statementDao.findByUserId(principal, pageNumber);
     }
 
-    public void takeStatement(Statement statement) {
-        statementDao.takeStatement(statement);
+    public void takeStatement(Statement statement, Principal principal) {
+        statementDao.takeStatement(statement, principal);
     }
 
     public void cancelStatement(Statement statement) {
         statementDao.cancelStatement(statement);
     }
 
-    public void finishStatement(Statement statement) {
-        statementDao.finishStatement(statement);
+    public void finishStatement(Statement statement, Principal principal) {
+        statementDao.finishStatement(statement, principal);
     }
 }
 

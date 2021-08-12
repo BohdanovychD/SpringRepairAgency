@@ -1,6 +1,9 @@
 package spring.agency.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import spring.agency.dao.UserDao;
 import spring.agency.model.entity.Statement;
@@ -19,12 +22,12 @@ public class UserService {
         return userDao.findById(userId);
     }
 
-    public List<User> findAllUsers() {
-        return userDao.findAllUsers();
+    public Page<User> findAllUsers(Integer pageNumber) {
+        return userDao.findAllUsers(pageNumber);
     }
 
-    public List<User> findAllMasters() {
-        return userDao.findAllMasters();
+    public Page<User> findAllMasters(Integer pageNumber) {
+        return userDao.findAllMasters(pageNumber);
     }
 
     public User save(User user) {

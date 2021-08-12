@@ -1,6 +1,7 @@
 package spring.agency.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import spring.agency.model.entity.Statement;
 import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
+
+import java.awt.print.Pageable;
 import java.security.Principal;
 import java.util.List;
 
@@ -26,8 +29,19 @@ public class UserController {
 
     @GetMapping("/statements_list")
     public String viewStatementList(Model model, Principal principal) {
-        List<Statement> statementList = statementService.findByUserId(principal);
-        model.addAttribute("statementList", statementList);
+        return  userStatementListByPage(model, principal, 1);
+    }
+
+    @GetMapping("/statements_list/page/{pageNumber}")
+    public String userStatementListByPage(Model model, Principal principal, @PathVariable("pageNumber") Integer currentPage) {
+        Page<Statement> page = statementService.findByUserId(principal, currentPage);
+
+        model.addAttribute("currentPage", page.getNumber());
+        model.addAttribute("currentPage", page.getNumber());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("size", page.getSize());
+        model.addAttribute("statementList", page.getContent());
         return "check_user_stm";
     }
 

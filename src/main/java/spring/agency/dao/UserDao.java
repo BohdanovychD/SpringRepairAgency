@@ -1,6 +1,9 @@
 package spring.agency.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import spring.agency.model.entity.Role;
@@ -32,16 +35,18 @@ public class UserDao {
         return userRepository.findById(userId).get();
     }
 
-    public List<User> findAllUsers() {
+    public Page<User> findAllUsers(Integer pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10);
         Role role = roleRepository.findByRole("USER");
-        List<Long> userId =  userRepository.findAllUserIdByRoleId(role.getId());
-        return userRepository.findAllById(userId);
+        Iterable<Long> userId =  userRepository.findAllUserIdByRoleId(role.getId());
+        return userRepository.findAllByIdIn(pageable, userId);
     }
 
-    public List<User> findAllMasters() {
+    public Page<User> findAllMasters(Integer pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10);
         Role role = roleRepository.findByRole("MASTER");
-        List<Long> userId =  userRepository.findAllUserIdByRoleId(role.getId());
-        return userRepository.findAllById(userId);
+        Iterable<Long> userId =  userRepository.findAllUserIdByRoleId(role.getId());
+        return userRepository.findAllByIdIn(pageable, userId);
     }
 
     public User save(User user) {
@@ -70,4 +75,6 @@ public class UserDao {
     public User findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
+
 }

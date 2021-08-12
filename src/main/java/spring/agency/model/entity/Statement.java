@@ -34,8 +34,11 @@ public class Statement {
     @Column()
     private Double price;
 
-    @Column
+    @Column()
     private String comment;
+
+    @Column(name = "master_name")
+    private String masterName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "time", nullable = false)

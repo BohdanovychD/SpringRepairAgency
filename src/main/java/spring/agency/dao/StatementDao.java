@@ -1,6 +1,10 @@
 package spring.agency.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import spring.agency.model.entity.Statement;
 import spring.agency.model.entity.User;
@@ -9,16 +13,7 @@ import spring.agency.repository.UserRepository;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-
-import static java.lang.String.*;
 
 @Component
 public class StatementDao {
@@ -32,8 +27,17 @@ public class StatementDao {
         this.userRepository = userRepository;
     }
 
-    public List<Statement> findAllStatements() {
-        return statementRepository.findAll();
+    public Page<Statement> findAllStatementsForMaster(Integer pageNumber, String sortField, String sortDir, Principal principal) {
+        User user = currentUser(principal);
+        return statementRepository.findAllForMaster(sort(pageNumber, sortField, sortDir), user.getName());
+    }
+
+    public Page<Statement> findAllUncompletedStatements(Integer pageNumber, String sortField, String sortDir) {
+        return statementRepository.findAllUncompleted(sort(pageNumber, sortField, sortDir));
+    }
+
+    public Page<Statement> findAllCompletedStatements(Integer pageNumber, String sortField, String sortDir) {
+        return statementRepository.findAllCompleted(sort(pageNumber, sortField, sortDir));
     }
 
     public Statement save(Statement statement, Principal principal) {
@@ -67,20 +71,37 @@ public class StatementDao {
         statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
     }
 
-    public void takeStatement(Statement statement) {
+    public void takeStatement(Statement statement, Principal principal) {
         statement.setStatus("IN A PROCESS");
-        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
-    }
-
-    public void finishStatement(Statement statement) {
-        statement.setStatus("DONE");
-        statementRepository.setPrice(statement.getPrice(), statement.getStatus(), statement.getId());
-    }
-
-    public List<Statement> findByUserId(Principal principal) {
         String login = principal.getName();
         User user = userRepository.findByLogin(login);
-        return statementRepository.findByUserId(user.getId());
+        statementRepository.setMaster(user.getName(), statement.getStatus(), statement.getId());
+    }
+
+    public void finishStatement(Statement statement, Principal principal) {
+        statement.setStatus("DONE");
+        String login = principal.getName();
+        User user = userRepository.findByLogin(login);
+        statementRepository.setMaster(user.getName(), statement.getStatus(), statement.getId());
+    }
+
+    public Page<Statement> findByUserId(Principal principal, Integer pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10);
+        String login = principal.getName();
+        User user = userRepository.findByLogin(login);
+        return statementRepository.findByUserId(user.getId(), pageable);
+    }
+
+    private static Pageable sort(Integer pageNumber, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        return PageRequest.of(pageNumber - 1, 10, sort);
+    }
+
+    private User currentUser(Principal principal) {
+        String login = principal.getName();
+        User user = userRepository.findByLogin(login);
+        return user;
     }
 
 }

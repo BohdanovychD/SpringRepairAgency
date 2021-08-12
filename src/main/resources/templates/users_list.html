@@ -35,6 +35,16 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class = "row col-sm-10">
+                    <div class = "col-sm-2">
+                        Total Rows: [[${totalElements}]] - Page [[${currentPage + 1}]] of [[${totalPages}]]
+                    </div>
+                    <div class = "col-sm-1">
+					    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						    <a th:href="@{'/manager/users_list/page/' + ${i}}" >[[${i}]]</a> &nbsp;&nbsp;
+					    </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
