@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +25,18 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 24)
+    @Pattern(regexp = "^[a-zA-Z0-9._-]{3,24}$", message = "Login is not correct")
     private String login;
 
     @Column(nullable = false, length = 64)
+    @Pattern(regexp = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", message = "Password is not correct")
     private String password;
 
     @Column(nullable = false, length = 20)
     private String name;
 
     @Column
+    @PositiveOrZero(message = "Balance can't be less than 0")
     private Double balance;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

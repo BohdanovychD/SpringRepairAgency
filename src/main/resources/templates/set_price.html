@@ -16,7 +16,10 @@
             </tr>
             <tr>
                 <td>[[#{statement.price}]]:</td>
-                <td><input type="text" th:field="*{price}" /></td>
+                <td><input type="text" th:field="*{price}" />
+                    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
+                </td>
+
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">[[#{menu.save}]]</button></td>

@@ -1,20 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>[[#{main.title.homepage}]]</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+
 </head>
 <body>
-    <header th:insert="blocks/header_lang :: header_lang"></header>
-    <div class="container text-center">
-        <div>
-            <h1>[[#{main.headline}]]</h1>
-        </div>
-            <div>
-                <h3><a th:href="@{/login}">[[#{menu.login}]]</a></h3>
-                <h3><a th:href="@{/register}">[[#{menu.registration}]]</a></h3>
-            </div>
+<nav class="py-2 bg-dark border-bottom">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+            <li class="nav-item"><a th:href="@{/}" class="nav-link link-light px-3 active" aria-current="page" style="color: orange">[[#{menu.repair.agency}]]</a></li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{?lang=en}">
+                    <img th:src="@{/images/engFlag.png}" width="20" height="30"/>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{?lang=uk}">
+                    <img th:src="@{/images/ukrFlag.png}" width="20" height="27"/>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav">
+            <a th:href="@{/login}" type="button" class="btn btn-outline-primary me-2">[[#{menu.login}]]</a>
+            <a th:href="@{/register}" type="button" class="btn btn-primary">[[#{menu.sign.up}]]</a>
+        </ul>
     </div>
+</nav>
+
+<div style="background-color: silver">
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img th:src="@{/images/back.jpg}" class="d-block mx-lg-auto img-fluid" width="700" height="500">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">[[#{menu.page.h1}]]</h1>
+                <p class="lead">[[#{menu.page.describe.1}]]</p>
+                <p class="lead">[[#{menu.page.describe.2}]]</p>
+                <p class="lead">[[#{menu.page.describe.3}]]</p>
+                <p class="lead">[[#{menu.page.describe.4}]]</p>
+                <p class="lead">[[#{menu.page.describe.5}]]</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a th:href="@{/register}" type="button" class="btn btn-primary btn-lg px-4 me-md-2">[[#{menu.sign.up}]]</a>
+                    <a th:href="@{/login}" type="button" class="btn btn-outline-secondary btn-lg px-4">[[#{menu.login}]]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

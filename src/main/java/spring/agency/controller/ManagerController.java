@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import spring.agency.model.entity.Statement;
@@ -12,6 +13,8 @@ import spring.agency.model.entity.User;
 import spring.agency.service.RoleService;
 import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/manager")
@@ -110,7 +113,10 @@ public class ManagerController {
     }
 
     @PostMapping(value = "/save/{id}")
-    public String saveProduct(@ModelAttribute("user") User user) {
+    public String saveProduct(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "supplement_balance";
+        }
         userService.updateBalance(user);
 
         return "redirect:/manager/users_list";
@@ -143,7 +149,10 @@ public class ManagerController {
     }
 
     @PostMapping(value = "/set/{id}")
-    public String savePrice(@ModelAttribute("statement") Statement statement) {
+    public String savePrice(@ModelAttribute("statement") @Valid Statement statement, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "set_price";
+        }
         statementService.setPrice(statement);
 
         return "redirect:/manager/statements_list";

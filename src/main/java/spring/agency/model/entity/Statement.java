@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Date;
 
 @Getter
@@ -32,6 +33,7 @@ public class Statement {
     private String about;
 
     @Column()
+    @PositiveOrZero(message = "You put the wrong price")
     private Double price;
 
     @Column()

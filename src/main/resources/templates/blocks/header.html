@@ -1,0 +1,23 @@
+<div th:fragment="header">
+
+  <nav class="py-2 bg-dark border-bottom">
+    <div class="container d-flex flex-wrap" sec:authorize="isAuthenticated()">
+      <ul class="nav me-auto">
+        <li class="nav-item"><a th:href="@{/main_page}" class="nav-link link-dark px- active" aria-current="page" style="color: orange">REPAIR AGENCY</a></li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{?lang=en}">
+            <img th:src="@{/images/engFlag.png}" width="20" height="30"/>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{?lang=uk}">
+            <img th:src="@{/images/ukrFlag.png}" width="20" height="27"/>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav">
+        <a th:href="@{/}" type="button" class="btn btn-primary">[[#{menu.sign.out}]]</a>
+      </ul>
+    </div>
+  </nav>
+</div>
