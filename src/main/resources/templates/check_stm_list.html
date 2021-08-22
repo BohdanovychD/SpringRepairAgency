@@ -56,7 +56,9 @@
                 <td th:text="${statement.name}">[[#{statement.name}]]</td>
                 <td th:text="${statement.price}">[[#{statement.price}]]</td>
                 <td>
+                    <div th:if="${statement.status == 'UNCHECKED'}">
                     <a th:href="@{'/manager/statements_list/' + ${statement.id} + '/set_price'}">[[#{statement.set}]]</a>
+                    </div>
                 </td>
                 <td th:text="${statement.about}">[[#{statement.about}]]</td>
                 <td th:text="${statement.status}">[[#{statement.status}]]</td>
@@ -69,7 +71,7 @@
 
     <div class="row col-sm-10">
         <div class="col-sm-2">
-            [[#{menu.total.rows}]]: [[${totalElements}]] - [[#{menu.page}]] [[${currentPage}]] [[#{menu.of}]] [[${totalPages}]]
+            [[#{menu.total.rows}]]: [[${totalElements}]] - [[#{menu.page}]] [[${currentPage + 1}]] [[#{menu.of}]] [[${totalPages}]]
         </div>
         <div class="col-sm-1">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">

@@ -35,15 +35,23 @@
                 <td th:text="${statement.name}">[[#{statement.name}]]</td>
                 <td th:text="${statement.about}">[[#{statement.about}]]</td>
                 <td th:text="${statement.status}">[[#{statement.status}]]</td>
-                <td><a th:href="@{'/master/statements_list/' + ${statement.id} + '/take'}">[[#{master.take}]]</a></td>
-                <td><a th:href="@{'/master/statements_list/' + ${statement.id} + '/done'}">[[#{master.done}]]</a></td>
+                <td>
+                    <div th:if="${statement.status == 'PAID'}">
+                    <a th:href="@{'/master/statements_list/' + ${statement.id} + '/take'}">[[#{master.take}]]</a>
+                    </div>
+                </td>
+                <td>
+                    <div th:if="${statement.status == 'IN A PROCESS'}">
+                    <a th:href="@{'/master/statements_list/' + ${statement.id} + '/done'}">[[#{master.done}]]</a>
+                    </div>
+                </td>
 
             </tr>
             </tbody>
         </table>
         <div class = "row col-sm-10">
             <div class = "col-sm-2">
-                [[#{menu.total.rows}]]: [[${totalElements}]] - [[#{menu.page}]] [[${currentPage}]] [[#{menu.of}]] [[${totalPages}]]
+                [[#{menu.total.rows}]]: [[${totalElements}]] - [[#{menu.page}]] [[${currentPage + 1}]] [[#{menu.of}]] [[${totalPages}]]
             </div>
             <div class = "col-sm-1">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">

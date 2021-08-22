@@ -33,7 +33,7 @@ public interface StatementRepository extends PagingAndSortingRepository<Statemen
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE statements SET price = ?, status = ? WHERE id = ?",
+    @Query(value = "UPDATE statements SET price = ?, status = ? WHERE id = ? and status ='UNCHECKED'",
             nativeQuery = true)
     void setPrice(@Param("price") Double price, @Param("status") String status,
                   @Param("statement_id") Long id);
@@ -47,7 +47,7 @@ public interface StatementRepository extends PagingAndSortingRepository<Statemen
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "UPDATE statements SET comment = ?, status = ? WHERE id = ?",
+    @Query(value = "UPDATE statements SET comment = ?, status = ? WHERE id = ? and status='DONE'",
             nativeQuery = true)
     void setComment(@Param("comment") String comment, @Param("status") String status, @Param("statement_id") Long id);
 }

@@ -76,11 +76,9 @@
                 </svg>
                 <div>
                     <h2>[[#{statement.create}]]</h2>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                        sentence
-                        and probably just keep going until we run out of words.</p>
+                    <p>[[#{user.menu.create}]]</p>
                     <a th:href="@{/user/create_statement}" class="btn btn-primary">
-                        [[#{menu.check}]]
+                        [[#{user.create}]]
                     </a>
                 </div>
             </div>
@@ -90,9 +88,7 @@
                 </svg>
                 <div>
                     <h2>[[#{statement.user.list}]]</h2>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                        sentence
-                        and probably just keep going until we run out of words.</p>
+                    <p>[[#{user.menu.my.statements}]]</p>
                     <a th:href="@{/user/statements_list}" class="btn btn-primary">
                         [[#{menu.check}]]
                     </a>
@@ -108,9 +104,7 @@
                     </svg>
                     <div>
                         <h2>[[#{statement.user.list}]]</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
-                            sentence
-                            and probably just keep going until we run out of words.</p>
+                        <p>[[#{master.menu.user.statements}]]</p>
                         <a th:href="@{/master/statements_list}" class="btn btn-primary">
                             [[#{menu.check}]]
                         </a>
