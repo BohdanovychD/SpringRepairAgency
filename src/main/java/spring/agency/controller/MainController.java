@@ -1,5 +1,8 @@
 package spring.agency.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,9 +17,11 @@ import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
+@Slf4j
 public class MainController {
 
     private UserService userService;
@@ -47,12 +52,14 @@ public class MainController {
             return "sign_up";
         }
         userService.save(user);
+        log.debug("New user with id: " + user.getId() + " was created" );
         return "register_success";
     }
 
     @GetMapping("/login")
     public String showSignInForm(Model model) {
         model.addAttribute("user", new User());
+        log.debug("User was logged");
         return "login";
     }
 

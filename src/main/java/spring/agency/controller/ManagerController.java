@@ -1,5 +1,6 @@
 package spring.agency.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +17,7 @@ import spring.agency.service.UserService;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
@@ -118,6 +120,7 @@ public class ManagerController {
             return "supplement_balance";
         }
         userService.updateBalance(user);
+        log.debug("Manager supplement the balance for user with id: " + user.getId());
 
         return "redirect:/manager/users_list";
     }
@@ -135,6 +138,7 @@ public class ManagerController {
     @GetMapping("/users_list/{id}/appoint_master")
     public String appointMaster(@ModelAttribute User user) {
         roleService.updateToMaster(user);
+        log.debug("User with id " + user.getId() + " was appoint as master");
         return "redirect:/manager/users_list";
     }
 
@@ -154,6 +158,7 @@ public class ManagerController {
             return "set_price";
         }
         statementService.setPrice(statement);
+        log.debug("Manager set the price for statement with id:" + statement.getId());
 
         return "redirect:/manager/statements_list";
     }

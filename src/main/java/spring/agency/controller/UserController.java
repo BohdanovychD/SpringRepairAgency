@@ -1,25 +1,22 @@
 package spring.agency.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import spring.agency.model.entity.Statement;
-import spring.agency.model.entity.User;
 import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
 
-import javax.validation.Valid;
-import java.awt.print.Pageable;
 import java.security.Principal;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     private StatementService statementService;
@@ -58,6 +55,7 @@ public class UserController {
     @PostMapping("/create_statement/success")
     public String successStatement(Statement statement, Principal principal) {
         statementService.save(statement, principal);
+        log.debug("New statement is created " + statement.getName());
         return "stm_success";
     }
 
@@ -88,6 +86,7 @@ public class UserController {
     @PostMapping(value = "/leave_comment/{id}")
     public String savePrice(@ModelAttribute("statement") Statement statement) {
         statementService.leaveComment(statement);
+        log.debug("User left the comment for statement with id: " + statement.getId());
 
         return "redirect:/user/statements_list";
     }
