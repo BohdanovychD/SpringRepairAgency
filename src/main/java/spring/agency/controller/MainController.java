@@ -1,10 +1,7 @@
 package spring.agency.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,27 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import spring.agency.model.entity.User;
-import spring.agency.service.RoleService;
-import spring.agency.service.StatementService;
 import spring.agency.service.UserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @Controller
 @Slf4j
 public class MainController {
 
-    private UserService userService;
-    private RoleService roleService;
-    private StatementService statementService;
+    private final UserService userService;
 
     @Autowired
-    public MainController(UserService userService, RoleService roleService, StatementService statementService) {
+    public MainController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
-        this.statementService = statementService;
     }
 
     @GetMapping("/")
@@ -57,9 +47,9 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String showSignInForm(Model model) {
-        model.addAttribute("user", new User());
-        log.debug("User was logged");
+    public String showSignInForm(Model model, @ModelAttribute User user) {
+        model.addAttribute("user", user);
+        log.debug("Successful login");
         return "login";
     }
 

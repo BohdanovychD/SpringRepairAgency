@@ -19,8 +19,8 @@ import java.security.Principal;
 @Slf4j
 public class UserController {
 
-    private StatementService statementService;
-    private UserService userService;
+    private final StatementService statementService;
+    private final UserService userService;
 
     @Autowired
     public UserController(StatementService statementService, UserService userService) {
@@ -55,7 +55,7 @@ public class UserController {
     @PostMapping("/create_statement/success")
     public String successStatement(Statement statement, Principal principal) {
         statementService.save(statement, principal);
-        log.debug("New statement is created " + statement.getName());
+        log.debug("New statement with id: " + statement.getId() + " is created " );
         return "stm_success";
     }
 

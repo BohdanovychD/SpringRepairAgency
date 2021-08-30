@@ -14,8 +14,8 @@ import spring.agency.repository.StatementRepository;
 import spring.agency.repository.UserRepository;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+
 
 @Component
 public class UserDao {
@@ -55,7 +55,7 @@ public class UserDao {
         user.setPassword(encodedPassword);
         user.setBalance(0.0);
         Role role = roleRepository.findByRole("USER");
-        user.setRoles(Arrays.asList(role));
+        user.setRoles(Collections.singletonList(role));
         return userRepository.save(user);
     }
 

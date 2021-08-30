@@ -22,9 +22,9 @@ import javax.validation.Valid;
 @RequestMapping("/manager")
 public class ManagerController {
 
-    private UserService userService;
-    private StatementService statementService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final StatementService statementService;
+    private final RoleService roleService;
 
     @Autowired
     public ManagerController(UserService userService, StatementService statementService, RoleService roleService) {
