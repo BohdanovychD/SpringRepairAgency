@@ -1,0 +1,21 @@
+2021-08-30 18:04:07.858  INFO 14060 --- [restartedMain] s.agency.SpringRepairAgencyApplication   : Starting SpringRepairAgencyApplication using Java 15 on DESKTOP-CRFAO1P with PID 14060 (C:\Users\Comp\IdeaProjects\SpringRepairAgency\target\classes started by Comp in C:\Users\Comp\IdeaProjects\SpringRepairAgency)
+2021-08-30 18:04:07.874 DEBUG 14060 --- [restartedMain] s.agency.SpringRepairAgencyApplication   : Running with Spring Boot v2.5.3, Spring v5.3.9
+2021-08-30 18:04:07.874  INFO 14060 --- [restartedMain] s.agency.SpringRepairAgencyApplication   : No active profile set, falling back to default profiles: default
+2021-08-30 18:04:10.132  INFO 14060 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-30 18:04:10.132  INFO 14060 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-30 18:04:10.261  INFO 14060 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-30 18:04:10.445  INFO 14060 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-30 18:04:10.523  INFO 14060 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-30 18:04:10.664  INFO 14060 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-30 18:04:10.789  INFO 14060 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-30 18:04:11.023  INFO 14060 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-30 18:04:11.039  INFO 14060 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+2021-08-30 18:04:13.002  INFO 14060 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-30 18:04:14.690  INFO 14060 --- [restartedMain] s.agency.SpringRepairAgencyApplication   : Started SpringRepairAgencyApplication in 7.447 seconds (JVM running for 8.893)
+2021-08-30 18:04:24.875  INFO 14060 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-08-30 18:04:41.090 DEBUG 14060 --- [http-nio-8080-exec-3] spring.agency.controller.MainController  : New user with id: 34 was created
+2021-08-30 18:04:41.734 DEBUG 14060 --- [http-nio-8080-exec-8] spring.agency.controller.MainController  : Successful login
+2021-08-30 18:05:42.167 DEBUG 14060 --- [http-nio-8080-exec-1] spring.agency.controller.UserController  : New statement with id:23is created 
+2021-08-30 18:05:45.864 DEBUG 14060 --- [http-nio-8080-exec-10] spring.agency.controller.MainController  : Successful login
+2021-08-30 18:05:56.346 DEBUG 14060 --- [http-nio-8080-exec-2] s.agency.controller.ManagerController    : User with id 29 was appoint as master
+2021-08-30 18:06:09.075 DEBUG 14060 --- [http-nio-8080-exec-4] s.agency.controller.ManagerController    : Manager set the price for statement with id:23
